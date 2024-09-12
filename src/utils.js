@@ -18,3 +18,11 @@ export const calculateAge = (birthdate, reference = null) => {
 
   return age;
 };
+
+export const generateEmptyUser = () => ({
+  // must NOT contain an id
+  name: '',
+  icon: '🆕',
+  birthday: new Date().toISOString(),
+  about: '',
+});

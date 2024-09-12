@@ -2,7 +2,7 @@ import React from 'react';
 import { Avatar, Button, List } from 'antd';
 import { useUserManagementDispatch, useUserManagementState } from '../../store/hooks';
 import { CHANGE_PAGINATION, SHOW_MODAL } from '../../store/actions';
-import { calculateAge } from '../../utils';
+import { calculateAge, generateEmptyUser } from '../../utils';
 import { EditOutlined, PlusOutlined } from '@ant-design/icons';
 
 const UsersList = () => {
@@ -24,7 +24,7 @@ const UsersList = () => {
         }}
         footer={
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Button type="primary" icon={<PlusOutlined />} onClick={() => showModal(null)}>
+            <Button type="primary" icon={<PlusOutlined />} onClick={() => showModal(generateEmptyUser())}>
               New user
             </Button>
           </div>
