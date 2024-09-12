@@ -1,5 +1,7 @@
 import { usersData } from '../mock/usersData';
-import { HANDLE_CANCEL, HANDLE_DELETE, HANDLE_OK, SET_NEW_USER_NAME, SHOW_MODAL } from './actions';
+import { CHANGE_PAGINATION, HANDLE_CANCEL, HANDLE_DELETE, HANDLE_OK, SET_NEW_USER_NAME, SHOW_MODAL } from './actions';
+
+const PAGINATION_LENGTH = 8;
 
 export const initialState = {
   users: usersData,
@@ -7,6 +9,7 @@ export const initialState = {
   isModalVisible: false,
   newUserName: '',
   isEditMode: false,
+  currentPagination: 0,
 };
 
 export function reducer(state, action) {
@@ -22,7 +25,7 @@ export function reducer(state, action) {
       return {
         ...state,
         isModalVisible: false,
-      }
+      };
     case HANDLE_OK:
       if (state.isEditMode) {
         return {
@@ -39,6 +42,7 @@ export function reducer(state, action) {
           users: [...state.users, { id: state.users.length + 1, name: state.newUserName, icon: '🆕' }],
           isModalVisible: false,
           newUserName: '',
+          currentPagination: Math.ceil((state.users.length + 1) / PAGINATION_LENGTH) + 1,
         };
       }
     case HANDLE_DELETE:
@@ -52,6 +56,11 @@ export function reducer(state, action) {
       return {
         ...state,
         newUserName: action.payload,
+      };
+    case CHANGE_PAGINATION:
+      return {
+        ...state,
+        currentPagination: action.payload,
       };
     default:
       return state;
