@@ -46,12 +46,13 @@ const UserModal = () => {
   return (
     <Modal
       title={state.isEditMode ? 'Edit User' : 'Add User'}
+      data-testid="modal-edit-create"
       open={state.isModalVisible}
       onOk={handleOk}
       onCancel={handleCancel}
       footer={[
         state.isEditMode && (
-          <Button key="delete" onClick={handleDelete}>
+          <Button key="delete" onClick={handleDelete} data-testid="button-delete">
             Delete
           </Button>
         ),
@@ -67,6 +68,7 @@ const UserModal = () => {
         {showEmojiPicker && <EmojiModal onConfirm={handleEmojiClick} onCancel={handleCancelEmojiClick} />}
 
         <Input
+          data-testid="input-username"
           placeholder="User Name"
           value={state.draftUser?.name}
           onChange={e => handleSetNewUserName(e.target.value)}
@@ -79,9 +81,10 @@ const UserModal = () => {
           placeholder="Select Birthday"
         />
         <Input.TextArea
-          value={state.draftUser?.about}
-          onChange={e => handleSetAbout(e.target.value)}
+          data-testid="input-about"
           placeholder="About"
+          value={state.isModalVisible ? state.draftUser?.about : ''}
+          onChange={e => handleSetAbout(e.target.value)}
           autoSize={{ minRows: 2, maxRows: 4 }}
           maxLength={150}
         />

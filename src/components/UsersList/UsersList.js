@@ -17,6 +17,7 @@ const UsersList = () => {
   return (
     <LayoutWrapper>
       <StyledList
+        data-testid="users-list"
         pagination={{
           position: 'top',
           align: 'end',
@@ -26,7 +27,12 @@ const UsersList = () => {
         }}
         footer={
           <ButtonWrapper>
-            <Button type="primary" icon={<PlusOutlined />} onClick={() => showModal(generateEmptyUser())}>
+            <Button
+              type="primary"
+              icon={<PlusOutlined />}
+              onClick={() => showModal(generateEmptyUser())}
+              data-testid="button-add-user"
+            >
               New user
             </Button>
           </ButtonWrapper>
@@ -35,7 +41,14 @@ const UsersList = () => {
         renderItem={user => (
           <List.Item
             key={user.id}
-            actions={[<Button type="text" icon={<EditOutlined />} onClick={() => showModal(user)} />]}
+            actions={[
+              <Button
+                type="text"
+                icon={<EditOutlined />}
+                onClick={() => showModal(user)}
+                data-testid="button-edit-item"
+              />,
+            ]}
           >
             <List.Item.Meta
               avatar={<StyledAvatar>{user.icon}</StyledAvatar>}
