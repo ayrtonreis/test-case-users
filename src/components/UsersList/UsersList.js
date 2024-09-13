@@ -1,9 +1,11 @@
 import React from 'react';
 import { Avatar, Button, List } from 'antd';
-import { useUserManagementDispatch, useUserManagementState } from '../../store/hooks';
-import { CHANGE_PAGINATION, SHOW_MODAL } from '../../store/actions';
-import { calculateAge, generateEmptyUser } from '../../utils';
 import { EditOutlined, PlusOutlined } from '@ant-design/icons';
+import { CHANGE_PAGINATION, SHOW_MODAL } from '../../store/actions';
+import { useUserManagementDispatch, useUserManagementState } from '../../store/hooks';
+import { calculateAge, generateEmptyUser } from '../../utils';
+import { PAGINATION_LENGTH } from '../../constants';
+import { ButtonWrapper, LayoutWrapper, SecondaryText, StyledAvatar, StyledList, TitleContainer } from './styled';
 
 const UsersList = () => {
   const state = useUserManagementState();
@@ -13,21 +15,21 @@ const UsersList = () => {
   const handleChangePagination = page => dispatch({ type: CHANGE_PAGINATION, payload: page });
 
   return (
-    <div style={{ padding: '20px' }}>
-      <List
+    <LayoutWrapper>
+      <StyledList
         pagination={{
           position: 'top',
           align: 'end',
-          pageSize: 4,
+          pageSize: PAGINATION_LENGTH,
           onChange: handleChangePagination,
           current: state.currentPagination,
         }}
         footer={
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <ButtonWrapper>
             <Button type="primary" icon={<PlusOutlined />} onClick={() => showModal(generateEmptyUser())}>
               New user
             </Button>
-          </div>
+          </ButtonWrapper>
         }
         dataSource={state.users}
         renderItem={user => (
@@ -36,19 +38,19 @@ const UsersList = () => {
             actions={[<Button type="text" icon={<EditOutlined />} onClick={() => showModal(user)} />]}
           >
             <List.Item.Meta
-              avatar={<Avatar style={{ backgroundColor: 'rgba(255,255,255,0)' }}>{user.icon}</Avatar>}
+              avatar={<StyledAvatar>{user.icon}</StyledAvatar>}
               title={
-                <div style={{ display: 'flex', gap: '10px' }}>
-                  <div>{user.name}</div>
-                  <div style={{ fontWeight: 'lighter', fontStyle: 'italic' }}>{calculateAge(user.birthday)} y/o</div>
-                </div>
+                <TitleContainer>
+                  {user.name}
+                  <SecondaryText>{calculateAge(user.birthday)} y/o</SecondaryText>
+                </TitleContainer>
               }
               description={user.about}
             />
           </List.Item>
         )}
-      ></List>
-    </div>
+      />
+    </LayoutWrapper>
   );
 };
 

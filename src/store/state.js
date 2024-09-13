@@ -10,8 +10,7 @@ import {
   SET_USER_ICON,
   SHOW_MODAL,
 } from './actions';
-
-const PAGINATION_LENGTH = 8;
+import { PAGINATION_LENGTH } from '../constants';
 
 export const initialState = {
   users: usersData,

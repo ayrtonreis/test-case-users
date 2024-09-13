@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import dayjs from 'dayjs';
 import { Button, DatePicker, Input, Modal } from 'antd';
 import { useUserManagementDispatch, useUserManagementState } from '../../store/hooks';
@@ -11,9 +11,9 @@ import {
   SET_USER_BIRTHDAY,
   SET_USER_ICON,
 } from '../../store/actions';
-import EmojiPicker from 'emoji-picker-react';
 import TextArea from 'antd/es/input/TextArea';
-import { GridContainer } from './styled';
+import { GridContainer, StyledButton, StyledDatePicker } from './styled';
+import { EmojiModal } from './EmojiModal';
 
 const UserModal = () => {
   const state = useUserManagementState();
@@ -29,14 +29,18 @@ const UserModal = () => {
   };
   const handleSetNewUserName = name => dispatch({ type: SET_NEW_USER_NAME, payload: name });
   const handleSetBirthday = date => dispatch({ type: SET_USER_BIRTHDAY, payload: date });
-  const handleSetIcon = icon => dispatch({ type: SET_USER_ICON, payload: icon });
   const handleSetAbout = about => dispatch({ type: SET_USER_ABOUT, payload: about });
 
-  const handleEmojiClick = emojiObject => {
-    const emoji = emojiObject.emoji;
-    handleSetIcon(emoji);
-    setShowEmojiPicker(false);
-  };
+  const handleEmojiClick = useCallback(
+    emojiObject => {
+      const emoji = emojiObject.emoji;
+      dispatch({ type: SET_USER_ICON, payload: emoji });
+      setShowEmojiPicker(false);
+    },
+    [dispatch],
+  );
+
+  const handleCancelEmojiClick = useCallback(() => setShowEmojiPicker(false), []);
 
   const shouldDisableSave = !state.draftUser?.name || !state.draftUser?.birthday;
 
@@ -58,18 +62,10 @@ const UserModal = () => {
       ]}
     >
       <GridContainer>
-        <Button
-          shape="circle"
-          style={{ backgroundColor: 'rgba(255,255,255,0)' }}
-          onClick={() => setShowEmojiPicker(true)}
-        >
+        <StyledButton shape="circle" onClick={() => setShowEmojiPicker(true)}>
           {state.draftUser?.icon}
-        </Button>
-        {showEmojiPicker && (
-          <div style={{ position: 'absolute', zIndex: 1 }}>
-            <EmojiPicker onEmojiClick={handleEmojiClick} />
-          </div>
-        )}
+        </StyledButton>
+        {showEmojiPicker && <EmojiModal onConfirm={handleEmojiClick} onCancel={handleCancelEmojiClick} />}
 
         <Input
           placeholder="User Name"
@@ -77,8 +73,7 @@ const UserModal = () => {
           onChange={e => handleSetNewUserName(e.target.value)}
           maxLength={40}
         />
-        <DatePicker
-          style={{ width: '100%' }}
+        <StyledDatePicker
           value={state.draftUser?.birthday ? dayjs(state.draftUser.birthday) : null}
           onChange={handleSetBirthday}
           format="DD-MM-YYYY"
