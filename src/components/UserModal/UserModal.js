@@ -3,9 +3,9 @@ import dayjs from 'dayjs';
 import { Button, Input, Modal } from 'antd';
 import { useUserManagementDispatch, useUserManagementState } from '../../store/hooks';
 import {
-  HANDLE_CANCEL,
-  HANDLE_DELETE,
-  HANDLE_OK,
+  CANCEL_MODAL,
+  DELETE_USER,
+  CONFIRM_MODAL,
   SET_NEW_USER_NAME,
   SET_USER_ABOUT,
   SET_USER_BIRTHDAY,
@@ -20,10 +20,10 @@ const UserModal = () => {
 
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
-  const handleOk = () => dispatch({ type: HANDLE_OK });
-  const handleDelete = () => dispatch({ type: HANDLE_DELETE });
+  const handleOk = () => dispatch({ type: CONFIRM_MODAL });
+  const handleDelete = () => dispatch({ type: DELETE_USER });
   const handleCancel = () => {
-    dispatch({ type: HANDLE_CANCEL });
+    dispatch({ type: CANCEL_MODAL });
     setShowEmojiPicker(false);
   };
   const handleSetNewUserName = name => dispatch({ type: SET_NEW_USER_NAME, payload: name });

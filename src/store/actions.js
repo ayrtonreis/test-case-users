@@ -1,7 +1,7 @@
 export const SHOW_MODAL = 'SHOW_MODAL';
-export const HANDLE_OK = 'HANDLE_OK';
-export const HANDLE_CANCEL = 'HANDLE_CANCEL';
-export const HANDLE_DELETE = 'HANDLE_DELETE';
+export const CONFIRM_MODAL = 'CONFIRM_MODAL';
+export const CANCEL_MODAL = 'CANCEL_MODAL';
+export const DELETE_USER = 'DELETE_USER';
 export const SET_NEW_USER_NAME = 'SET_NEW_USER_NAME';
 export const SET_USER_ICON = 'SET_USER_ICON';
 export const SET_USER_BIRTHDAY = 'SET_USER_BIRTHDAY';

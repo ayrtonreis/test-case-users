@@ -1,9 +1,9 @@
 import { usersData } from '../mock/usersData';
 import {
   CHANGE_PAGINATION,
-  HANDLE_CANCEL,
-  HANDLE_DELETE,
-  HANDLE_OK,
+  CANCEL_MODAL,
+  DELETE_USER,
+  CONFIRM_MODAL,
   SET_NEW_USER_NAME,
   SET_USER_ABOUT,
   SET_USER_BIRTHDAY,
@@ -29,13 +29,13 @@ export function reducer(state, action) {
         isEditMode: !!action.payload.id,
         isModalVisible: true,
       };
-    case HANDLE_CANCEL:
+    case CANCEL_MODAL:
       return {
         ...state,
         isModalVisible: false,
         draftUser: null,
       };
-    case HANDLE_OK:
+    case CONFIRM_MODAL:
       if (state.isEditMode) {
         return {
           ...state,
@@ -52,7 +52,7 @@ export function reducer(state, action) {
           draftUser: null,
         };
       }
-    case HANDLE_DELETE:
+    case DELETE_USER:
       return {
         ...state,
         users: state.users.filter(user => user.id !== state.draftUser.id),
