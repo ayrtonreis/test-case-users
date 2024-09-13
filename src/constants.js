@@ -3,4 +3,4 @@ export const breakpoints = {
   md: '768px',
 };
 
-export const PAGINATION_LENGTH = 6;
+export const PAGINATION_LENGTH = 8;
