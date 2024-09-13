@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import dayjs from 'dayjs';
-import { Button, DatePicker, Input, Modal } from 'antd';
+import { Button, Input, Modal } from 'antd';
 import { useUserManagementDispatch, useUserManagementState } from '../../store/hooks';
 import {
   HANDLE_CANCEL,
@@ -11,7 +11,6 @@ import {
   SET_USER_BIRTHDAY,
   SET_USER_ICON,
 } from '../../store/actions';
-import TextArea from 'antd/es/input/TextArea';
 import { GridContainer, StyledButton, StyledDatePicker } from './styled';
 import { EmojiModal } from './EmojiModal';
 
@@ -79,7 +78,7 @@ const UserModal = () => {
           format="DD-MM-YYYY"
           placeholder="Select Birthday"
         />
-        <TextArea
+        <Input.TextArea
           value={state.draftUser?.about}
           onChange={e => handleSetAbout(e.target.value)}
           placeholder="About"
