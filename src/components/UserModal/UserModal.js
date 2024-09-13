@@ -83,7 +83,7 @@ const UserModal = () => {
         <Input.TextArea
           data-testid="input-about"
           placeholder="About"
-          value={state.isModalVisible ? state.draftUser?.about : ''}
+          value={state.draftUser?.about}
           onChange={e => handleSetAbout(e.target.value)}
           autoSize={{ minRows: 2, maxRows: 4 }}
           maxLength={150}
