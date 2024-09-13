@@ -17,7 +17,7 @@ export const initialState = {
   draftUser: null,
   isModalVisible: false,
   isEditMode: false,
-  currentPagination: 0,
+  currentPagination: 1,
 };
 
 export function reducer(state, action) {
